@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>US Weather Map</h1>
+        <div id="map" style="height: 500px;"></div>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([37.0902, -95.7129], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Add weather data to map (you'll need to implement this based on your weather API data)
+</script>
+{% endblock %}
