@@ -11,28 +11,40 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Weather Prediction</a>
-            <div class="navbar-nav">
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                    <a class="nav-link" href="{% url 'settings' %}">Settings</a>
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                {% endif %}
+            <a class="navbar-brand" href="{% url 'home' %}">Weather Triple A</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">  <!-- ms-auto to push items to the right -->
+                    {% if user.is_authenticated %}
+                        <!-- Profile Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Profile
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile_settings' %}">Settings</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link btn btn-link" style="color: white;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'login' %}">Login</a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'signup' %}">Sign Up</a> </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        
+    <div class="container mt-4">        
         {% block content %}
         {% endblock %}
     </div>

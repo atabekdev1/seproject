@@ -9,11 +9,17 @@
 </div>
 
 <script>
+    // Initialize the map centered on the US
     var map = L.map('map').setView([37.0902, -95.7129], 4);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+
+    // Add weather map layer using OpenWeatherMap
+    L.tileLayer('https://{s}.tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={API_KEY}', {
+        attribution: 'Map data &copy; <a href="https://openweathermap.org">OpenWeatherMap</a>',
+        layer: 'precipitation_new', // This could be changed to show storm/hurricane maps
+        API_KEY: 'Your API key here'
     }).addTo(map);
 
-    // Add weather data to map (you'll need to implement this based on your weather API data)
-</script>
+    // You can add other weather layers like 'hurricane', 'rainfall', etc., depending on the OpenWeatherMap API options
+
+</script>  
 {% endblock %}
